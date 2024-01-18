@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-from .forms import contactForm
+from .forms import contactForm, StudentForm
 # Create your views here.
 
 def home(request):
@@ -27,7 +27,17 @@ def DjangoForm(request):
                 for chunk in file.chunks():
                     destination.write(chunk)
             print(form.cleaned_data)
-            return render(request, 'django_form.html', {'form': form})
     else:
         form = contactForm()
     return render(request, 'django_form.html', {'form': form})
+
+
+def studentForm(request):
+    if request.method == 'POST':
+        s_form = StudentForm(request.POST)
+        if s_form.is_valid():
+            print(s_form.cleaned_data)
+    else:
+        s_form = StudentForm()
+    return render(request, 'student_form.html', {'s_form' : s_form})
+
