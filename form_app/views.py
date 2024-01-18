@@ -34,8 +34,12 @@ def DjangoForm(request):
 
 def studentForm(request):
     if request.method == 'POST':
-        s_form = StudentForm(request.POST)
+        s_form = StudentForm(request.POST, request.FILES)
         if s_form.is_valid():
+            s_file = s_form.cleaned_data['s_file']
+            with open('./form_app/upload/image' + s_file.name, 'wb+') as destination:
+                for chunk in s_file.chunks():
+                    destination.write(chunk)
             print(s_form.cleaned_data)
     else:
         s_form = StudentForm()
