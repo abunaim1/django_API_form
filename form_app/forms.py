@@ -13,3 +13,4 @@ class contactForm(forms.Form):
     size = forms.ChoiceField(choices=CHOICES)
     ITEM = [('P','Peparoni'),('B','Beef'),('M','Mashroom')]
     ingradient = forms.MultipleChoiceField(choices=ITEM)
+    file = forms.FileField()
