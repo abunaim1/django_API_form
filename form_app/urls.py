@@ -6,4 +6,5 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('django_form/', views.DjangoForm, name='djangoForm'),
     path('student_form/', views.studentForm, name='s_form'),
+    path('password_validation/', views.passwordValidation, name='passwordValidation'),
 ]

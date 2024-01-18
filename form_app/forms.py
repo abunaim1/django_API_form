@@ -54,3 +54,20 @@ class StudentForm(forms.Form):
     age = forms.IntegerField(widget=forms.NumberInput, validators=[validators.MaxValueValidator(25, message='Age at most 25'), validators.MinValueValidator(18, message='Age at least 18')])
     s_file = forms.FileField(validators=[validators.FileExtensionValidator(allowed_extensions=['jpeg', 'jpg', 'png'], message='Only image file accepted')])
     comments = forms.CharField(widget = forms.Textarea(attrs={'placeholder' : 'Enter your comments here...'}), validators=[len_check])
+
+
+class PasswordValidation(forms.Form):
+   name = forms.CharField(widget=forms.TextInput(attrs={'placeholder' : 'Enter Your Name'}))
+   password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder' : 'Enter Your Password'}))
+   confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder' : 'Re-enter Your Password'}))
+
+   def clean(self):
+       cleaned_data = super().clean()
+       val_password = self.cleaned_data['password']
+       val_conpassword = self.cleaned_data['confirm_password']
+       val_name = self.cleaned_data['name']
+       if val_password != val_conpassword:
+           raise forms.ValidationError("Password didn't match")
+       if len(val_name) < 5:
+           raise forms.ValidationError("Name at least 5")
+       
